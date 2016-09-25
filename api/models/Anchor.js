@@ -13,6 +13,9 @@ module.exports = {
       type: 'string',
       primaryKey: true
     },
+    hashValue: {
+      type: 'integer'
+    },
     target: {
       model: 'target'
     },
