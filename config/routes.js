@@ -45,8 +45,8 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
-
+  'post /anchor': 'AnchorController.createAnchor',
   'get /meld': 'AnchorController.getMeld',
-  'post /meld': 'AnchorController.createMeld'
+  'post /target': 'TargetController.createTarget'
 
 };

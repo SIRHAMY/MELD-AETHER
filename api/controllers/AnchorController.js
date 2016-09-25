@@ -8,9 +8,60 @@
 module.exports = {
     /**
      * Create meld
+     * 
+     * POST (/meld)
+     * 
+     * Required params:
+     * - hash
+     * - hashValue
+     * - link
      */
-    createMeld: function(req, res) {
+    createAnchor: function(req, res) {
 
+        Anchor.create({
+            hash: req.param('hash'),
+            hashValue: req.param('hashValue'),
+            target: req.param('target'),
+            link: req.param('link')
+        }).exec(function(err, newAnchor) {
+
+            if(err) return res.status(500).json({error: err});
+
+            return res.json(newAnchor);
+            /*
+            Target.create({
+                link: req.param('link'),
+                anchors: [newAnchor]
+            }).exec(function(err, newTarget) {
+                while(!newTarget)
+                console.log(newTarget);
+                console.log(newTarget.anchors);
+                Anchor.update({hash: newTarget.anchors[0].hash}, {target: newTarget}).exec(function(err, updated) {
+                    if(err) return res.status(500).json({error: err});
+
+                    return res.json(updated);
+                });
+            });
+            */
+        });
+        
+        /*
+        MeldService.createAnchor(req, function(err, newAnchor) {
+            if(err) return res.status(500).json({error: err});
+
+            MeldService.createTarget(req, newAnchor, function(err, newTarget) {
+                if(err) return res.status(500).json({error: err});
+
+                Anchor.update({hash: req.param('anchor').hash}).exec(function(err, updated) {
+                    if(err) return res.status(500).json({error: err});
+
+                    return res.json(updated);
+                });
+
+            });
+            //return res.json(newAnchor);
+        });
+        */
     },
 
 	/**
@@ -42,7 +93,7 @@ module.exports = {
             }
 
 
-            return res.json(foundAnchor.target.link);
+            return res.json(foundAnchor.link);
 
         });
     }

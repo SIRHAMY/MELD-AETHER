@@ -24,6 +24,10 @@ module.exports = {
     },
     masterDomain: {
       model: 'domain'
+    },
+    link: {
+      type: 'string',
+      required: true
     }
 
   }
